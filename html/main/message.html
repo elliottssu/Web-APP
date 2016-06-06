@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <style>
+        body, html {
+            background-color: #fff;
+        }
+        .activity {
+            margin: 0 10px;
+        }
+
+        .activity li {
+            padding: 15px 0;
+            background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../../image/mine/arrow.png");
+            border-bottom: 1px solid #F6F6F6;
+            height: 50px;
+        }
+
+
+        .subtitle {
+            font-size: 16px;
+            margin-left: 10px;
+            margin-top: 8px;
+        }
+        .twotitle {
+            font-size: 12px;
+            margin-left: 10px;
+            margin-top: 3px;
+            color: #aaa;
+        }
+
+        .tag {
+            float: left;
+            width: 50px;
+            padding: 1px 3px 10px 0;
+        }
+
+        .searchheader{
+            height: 49px;
+            background: #EEEEF0;
+
+        }
+
+        .search {height: 35px;line-height: 35px; border-radius: 10px;  margin-top: 7px; position: absolute;font-size: 14px;left:10px;right: 10px;background-color: #fff;color: #aaa;text-align: center;}
+
+        .search img {vertical-align: top; width: 17px; padding-top: 10px;padding-right: 5px;text-align: center;}
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="searchheader">
+    <div class="search"tapmode="" onclick="wrong()">
+        <img src="../../image/message/search.png" alt="">搜索
+    </div>
+    
+</div>
+
+<ul class="activity">
+    <li onclick="wrong()">
+        <img src="../../image/message/notice.png" alt="" class="tag">
+        <span class="subtitle">通知</span><br>
+        <span class="twotitle">16条通知未读</span>
+    </li>
+    <li onclick="wrong()">
+        <img src="../../image/message/reply.png" alt="" class="tag">
+        <span class="subtitle">反馈</span><br>
+        <span class="twotitle">新增304条反馈</span>
+    </li>
+    <li onclick="wrong()">
+        <img src="../../image/message/note.png" alt="" class="tag">
+        <span class="subtitle">公告</span><br>
+        <span class="twotitle">暂无发布</span>
+    </li>
+</ul>   
+
+
+
+
+
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        setRefreshHeader();
+        fixIos7Bar($(".header"));
+    };
+    //下拉刷新
+    function setRefreshHeader() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#EEEEF0',
+            textColor: '#aaa',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            api.refreshHeaderLoadDone(),
+            api.toast({msg: "无最新数据", location: 'buttom'})
+        });
+    }
+    function closeWin() {
+        api.closeWin({
+
+        })
+    }
+
+     // 空白页面显示
+    var wrong = function(){
+        api.openWin({
+            name: 'wrong',
+            url: '../../html/wrong.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+
+
+</script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <style>
+        body, html {
+            background: #EEEEF0;
+        }
+        .login-header-btn{
+            display: inline-block;
+            padding: 30px;
+            background-size: 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .login-header .nologin-user {
+            -webkit-transform: rotateY(0deg);
+            background-image: url("../../image/mine/user.png");
+            position: absolute;
+            left: 20px;
+        }
+
+        .login-header {
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .title {
+            padding-top: 18px;
+            padding-bottom: 28px;
+            margin: 0 10px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+             background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../../image/mine/arrow.png");
+        }
+
+        .login {
+            color: #000;
+            font-size: 16px;
+            padding-top: 10px;
+            margin-left: 85px;
+        }
+
+        .companyname {
+            padding-top: 5px;            
+            margin-left: 85px !important;
+            font-size: 13px;
+        }
+
+        .mine {
+            background-color: #fff;
+            padding: 10px;
+            border-top: 1px solid #F6F6F6;
+        }
+
+        .mine li {
+            display: inline-block;
+            width: 24%;
+            text-align: center;
+            padding: 20px 0 6px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+
+        .mine li span {
+            margin: 10px 10px 0 10px;
+            color: #737377;
+            font-size: 12px;
+        }
+
+
+        .employee {
+            background-image: url("../../image/mine/employee.png");
+        }
+
+        .star {
+            background-image: url("../../image/mine/star.png");
+        }
+
+        .record {
+            background-image: url("../../image/mine/record.png");
+        }
+
+        .company {
+            background-image: url("../../image/mine/company.png");
+        }
+        .content{
+            background-color: #fff;
+        }
+        .activity {
+            margin: 0 10px;
+        }
+
+        .activity li {
+            padding: 15px 0;
+            background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../../image/mine/arrow.png");
+            border-bottom: 1px solid #F6F6F6;
+        }
+
+        .activity li:last-child {
+            border-bottom: none;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            margin-left: 10px;
+        }
+
+        .tag {
+            float: left;
+            width: 20px;
+            padding: 1px 3px 10px 0;
+        }
+
+
+       
+        .login-user{
+            background-image: url("../../image/mine/user.png");   
+        }
+
+
+
+        .h10 {height: 10px;background: #EEEEF0;}
+    </style>
+</head>
+<body>
+<header>
+    <div class="login-header header ">
+        <div class="title"id="user"onclick="wrong()">
+            <div class="login-header-btn nologin-user" ></div>
+            <div class="login">王孜宣</div>
+            <div class="companyname">魅文信息技术有限公司</div>
+        </div>
+    </div>
+</header>
+<ul class="mine">
+    <li class="employee"onclick="wrong()">
+        <span>通讯录</span>
+    </li>
+    <li class="company" onclick="wrong()">
+        <span>公司</span>
+    </li>
+    <li class="star" onclick="wrong()">
+        <span>收藏</span>
+    </li>    
+    <li class="record"onclick="wrong()">
+        <span>进度</span>
+    </li> 
+</ul>
+<div class="h10"></div>
+<div class="content">
+<ul class="activity">
+    <li onclick="wrong()">
+        <img src="../../image/mine/a1.png" alt="" class="tag">
+        <span class="subtitle">管理秘籍</span>
+    </li>
+    <li onclick="wrong()">
+        <img src="../../image/mine/a2.png" alt="" class="tag">
+        <span class="subtitle">优秀文化</span>
+    </li>
+    <li onclick="wrong()">
+        <img src="../../image/mine/a3.png" alt="" class="tag">
+        <span class="subtitle">意见反馈</span>
+    </li>
+</ul>   
+</div>
+
+
+    <div class="h10"></div>
+    <div class="content">
+    <ul class="activity">
+    <li onclick="toSetting()" tapmode="">
+        <img src="../../image/mine/a4.png" alt="" class="tag">
+        <span class="subtitle">设置</span>
+    </li>
+</ul>
+</div>
+
+
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+    };
+
+
+    function closeWin() {
+        api.closeWin({
+
+        })
+    }
+    function toLogin() {
+        api.openWin({
+            name: 'login',
+            url: 'login.html'
+        })
+    }
+    function toSetting() {
+        api.openWin({
+            name: 'setting',
+            url: '../frames/setting.html'
+        })
+    }
+      // 空白页面显示
+    var wrong = function(){
+        api.openWin({
+            name: 'wrong',
+            url: '../../html/wrong.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+</script>
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,311 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+</head>
+<body ontouchstart="">
+    <div id="wrap">
+        <div id="header" class="concept">
+            <div class="header_content concept">
+                <a class="btn_middle">
+                    理念
+                </a>
+            </div>
+            <div class="header_content survey">
+                <a class="btn_middle">
+                    调研
+                </a>
+                <div class="btn_right" tapmode="tap-active" onclick="wrong()">
+                    <img src="image/message/copy.png" class="follow">
+                </div>
+            </div>
+            <div class="header_content fun">
+                <div id="navBar_fun">
+                    <span class="navBar_btn fr active" onclick="jumpToFun(0);" tapmode="tap-active">
+                        问卷统计
+                    </span>
+                    <span class="navBar_btn fl" onclick="jumpToFun(1);" tapmode="tap-active">
+                        理念分析
+                    </span>
+                </div>
+            </div>
+            <div class="header_content message">
+                <a class="btn_middle" tapmode="tap-active">
+                    消息
+                </a>
+                <div class="btn_right" tapmode="tap-active" onclick="wrong()">
+                    <img src="image/message/add.png" class="follow">
+                </div>
+            </div>
+            <div class="header_content mine">
+                <a class="btn_middle">
+                    我
+                </a>
+            </div>
+        </div>
+        <div id="main">
+
+        </div>
+        <div id="footer">
+            <!-- 原生代替tabBar -->
+            <ul id="footer_list">
+                <li class="list_li concept active" onclick="changeIndexFrame(0);" tapmode="tap-active">
+                    <span class="text">理念</span>
+                </li>
+                <li class="list_li follow" onclick="changeIndexFrame(1);" tapmode="tap-active">
+                    <span class="text">调研</span>
+                </li>
+                <li class="list_li fun" onclick="changeIndexFrame(2);" tapmode="tap-active">
+                    <span class="text">分析</span>
+                </li>
+                <li class="list_li message" onclick="changeIndexFrame(3);" tapmode="tap-active">
+                    <span class="text">消息</span>
+                </li>
+                <li class="list_li mine" onclick="changeIndexFrame(4);" tapmode="tap-active">
+                    <span class="text">我</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/zepto.min.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript">
+    // 下方tabBar，不好用放弃，用原生写
+    var aFooterList = $api.domAll('#footer_list .list_li');
+    var listBar = $api.dom('#footer_list .list_bar');
+    var navBarFun = $api.dom('#navBar_fun');
+    var aNavBarBtn = $api.domAll('#navBar_fun .navBar_btn');
+    var navBarBar = $api.dom('#navBar_fun .navBar_bar');
+    var setNavBarBtn = function(index){
+        $api.addCls(aNavBarBtn[index],'active');
+        for (var i = 0; i < 2; i++) {
+            if (i != index) {
+                $api.removeCls(aNavBarBtn[i],'active');
+            }
+        }
+    };
+    var jumpToFun = function(index){
+        api.setFrameGroupIndex ({
+            name: 'fun',
+            index: index,
+            scroll: true
+        });
+    }
+    //::::搜索框js加上宽度，来适应屏幕尺寸 end
+    // tabBar切换状态，同时切换header与frame
+    var frameJson = {
+        '0': 'concept',
+        '1': 'survey',
+        '2': 'fun',
+        '3': 'message',
+        '4': 'mine'
+    };
+    var changeIndexFrame = function(index){
+        header.className = frameJson[index];
+        for (var i = 0; i < 5; i++) {
+            if (i == index) {
+                $api.addCls(aFooterList[index],'active');
+            } else{
+                $api.removeCls(aFooterList[i],'active');
+            }
+        };
+        openIndexFrames(index);
+    };
+
+    // 空白页面显示
+    var wrong = function(){
+        api.openWin({
+            name: 'wrong',
+            url: './html/wrong.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+
+
+    //双击退出应用
+    function exitApp(){
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+            api.toast({
+                    msg: '再按一次返回键退出应用',
+                    duration:2000,
+                    location: 'bottom'
+                });
+                
+                api.addEventListener({
+                    name: 'keyback'
+                }, function(ret, err){
+                    api.closeWidget({
+                            id: 'A6916875824670',     
+                            retData: {name:'closeWidget'},
+                            silent:true
+                        });
+                });
+                
+                setTimeout(function(){
+                        exitApp();
+                },3000)
+        });
+}
+
+
+    apiready = function(){
+        //调用双击退出
+        exitApp();
+
+
+        //连接数据库
+        try {
+            checkUserId();
+            var model = api.require('model');
+            var query = api.require('query');
+            model.config({
+                appId: 'A6916875824670',
+                appKey: '7813F5B6-3787-F9AC-F43F-F7AC8CD28FAF',
+                host: 'https://d.apicloud.com'
+            });
+            fixIos7Bar($(".header"));
+
+        } catch (e) {
+            alert(e)
+        }
+
+        //是否存储了登陆信息
+        function checkUserId(){
+        if(localStorage.getItem("userId")){
+
+        }else{
+            api.openWin({
+            name: 'login',
+            url: 'html/login.html'
+        })
+        }
+    }
+              
+        // 阻止首页弹动
+        api.setWinAttr({
+            bounces: false
+        });
+        // 阻止首页弹动 end
+
+        window.header = $api.byId('header');
+        $api.fixIos7Bar(header);
+        var headerPos = $api.offset(header);
+        var main = $api.byId('main');
+        var mainPos = $api.offset(main);
+        var footer = $api.byId('footer');
+        var footerPos = $api.offset(footer);
+
+        // 切换frame
+        // 打开app先设置funIndex为0；
+        $api.setStorage('funIndex',0);
+        window.openIndexFrames = function(index){
+            var funIndex = $api.getStorage('funIndex');
+            if (index == 2) {
+                var funH = $api.offset(navBarFun).h;
+                api.openFrameGroup ({
+                    name: 'fun',
+                    background: '#EEEEF0',
+                    scrollEnabled: true,
+                    rect: {
+                        x: 0,
+                            y: $api.offset(header).h,
+                            w: 'auto',
+                            h: mainPos.h
+                    },
+                    index: funIndex,
+                    preload:5,
+                    frames:
+                    [{
+                        name: 'analysis',
+                        url: './html/main/analysis.html',
+                        pageParam:{},
+                        bounces:true,
+                        opaque:true,
+                        bgColor: '#EEEEF0',
+                        vScrollBarEnabled:true,
+                        hScrollBarEnabled:false,
+
+                    },{
+                        name: 'analysis-concept',
+                        url: './html/main/analysis-concept.html',
+                        pageParam:{},
+                        bounces:true,
+                        opaque:true,
+                        bgColor: '#EEEEF0'
+                    }]
+                }, function(ret, err){
+                    var name = ret.name;
+                    var index = ret.index;
+                    $api.setStorage('funIndex',index);
+                    setNavBarBtn(index);
+                });
+
+            } else{
+                if (index == 4) {
+                    api.openFrame({
+                        name: frameJson[index],
+                        url: './html/main/'+frameJson[index]+'.html',
+                        bounces: true,
+                        preload:5,
+                        rect: {
+                            x: 0,
+                            y: $api.offset(header).h,
+                            w: 'auto',
+                            h: mainPos.h
+                        }
+                    });
+                } else{
+                    api.openFrame({
+                        name: frameJson[index],
+                        url: './html/main/'+frameJson[index]+'.html',
+                        bounces: true,
+                        preload:5,
+                        rect: {
+                            x: 0,
+                            y: headerPos.h,
+                            w: 'auto',
+                            h: mainPos.h
+                        }
+                    });
+                }
+
+            }
+            for (var i = 0; i < 5; i++) {
+                if (i == index) {
+
+                } else{
+                    if (i == 2) {
+                        api.setFrameGroupAttr({
+                            name: 'fun',
+                            hidden: true
+                        });
+
+                    } else{
+                        api.setFrameAttr({
+                            name: frameJson[i],
+                            hidden: true
+                        });
+                    }
+
+                }
+
+            };
+        };
+        changeIndexFrame(0);
+    };
+</script>
+</html>

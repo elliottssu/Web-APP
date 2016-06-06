@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/common.css"/>
+    <style>
+    body, html {
+            background: #f0f0f0;
+        }
+        .detail-header{
+            background-color: #FFDC4B;
+            height:50px;
+            line-height: 50px;
+            font-size: 18px; 
+
+        }
+        .back{
+            background-size: 30px!important;
+            background-image: url("../../image/mine/back-wh.png");
+            background-position: right!important;
+            background-repeat: no-repeat;
+        }
+
+        .detail-header a{
+            padding-top: 25px;
+            padding-bottom: 25px;
+            padding-left: 40px;
+            float: left;
+        }
+        .title{
+            color: #000;
+            text-align: center;
+            line-height:50px;
+            font-size: 18px;
+            float: left;
+            position: absolute;
+            left: 47%
+        }
+
+        .mine li, .bottom li {
+            display: inline-block;
+            width: 32%;
+            text-align: center;
+            padding: 20px 0 6px;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+        .content{
+            background-color: #fff;
+        }
+
+        .activity {
+            margin: 0 10px;
+        }
+
+        .activity li {
+
+            position: relative;
+            padding: 15px 0;
+            background-size: 8px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-image: url("../../image/mine/arrow.png");
+            border-bottom: 1px solid #F6F6F6;
+        }
+        .no-arrow{
+            background-image:none!important;
+        }
+        .value {
+            position: absolute;
+            right:20px;
+            font-size: 14px;
+            color: #828282;
+        }
+
+        .btn {
+            display: block;
+            color: #FFFFFF;
+            margin: 0 20px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+            background-color:#DD6572 ;
+            margin-top: 20px;
+        }
+        .user-photo{
+            background-position: center center;
+            background-size: 30px;
+            width: 30px;
+            height: 30px;
+            bottom: 7px;
+            background-image: url("../image/user_weiboimage_netease@2x.png");
+        }
+         .h10 {height: 10px;background: #f0f0f0;}
+    </style>
+</head>
+<body>
+<header>
+    <div class="header detail-header">
+        <a class="back" tapmode="" onclick="api.closeWin()"></a>
+        <div class="title" id="title">设置</div>
+        <a></a>
+    </div>
+</header>
+<div class="h10"></div>
+<div class="content">
+    <ul class="activity">
+      <li class="no-arrow"> 
+        <span class="key">版本更新</span>
+        <span class="value">已经是最新版本</span>
+      </li>
+    </ul>
+</div>
+
+<div class="h10"></div>
+<div class="content">
+    <ul class="activity">
+      <li onclick="wrong()">
+        <span class="key">清空缓存</span>
+    </li>
+
+    <li onclick="wrong()">
+        <span class="key">常规设置</span>
+    </li>
+
+    <li onclick="wrong()">
+        <span class="key">关于魅文</span>
+    </li>
+    </ul>
+</div>
+<div class="h10"></div>
+<div class="btn" id="login" tapmode="" onclick="logout()">退出登录</div>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+    };
+      // 空白页面显示
+    var wrong = function(){
+        api.openWin({
+            name: 'wrong',
+            url: '../../html/wrong.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: 'auto'
+            }
+        });
+    };
+
+
+  function openWin() {
+        api.openWin({
+            name: 'login',
+            url: '../../html/login.html'
+        })
+    }
+    function logout() {
+        api.showProgress();
+        var user = api.require('user');
+        user.logout(function(ret, err){
+            api.hideProgress();
+            if(ret){
+                api.confirm({
+                    title: '确定要登出账号?',
+                    buttons:[ '取消', '确定']
+                },function(ret,err){
+                    if(ret.buttonIndex == 2){
+                        localStorage.removeItem('userId');
+                        api.execScript({
+                            name:'user',
+                            script:'checkUserId()'
+                        });
+                        api.execScript({
+                            name:'root',
+                            script:'checkUserId()'
+                        })
+                        openWin();
+                    }else{
+
+                    }
+                });
+            }else{
+                api.toast({msg: err.message, location: "middle"})
+            }
+        });
+    }
+</script>
+</body>
+</html>

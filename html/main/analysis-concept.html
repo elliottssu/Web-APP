@@ -1,0 +1,224 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+    body{
+    	overflow-x:hidden
+ 
+    }
+    .card{
+    border: 1px solid rgba(54, 64, 74, 0.05);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin-top: 5px;
+    background-color: #ffffff;    	
+    }
+    .title{
+    font-size: 15px;
+    padding: 5px;
+    height: 30px;
+    color: #828282;
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+<div class="card">
+   <div class="title">文化值变化趋势</div>
+   <div id="culture" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">核心价值观指标</div>
+   <div id="core" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">文化认同度</div>
+   <div id="agree" style="height:240px;"></div>
+</div>
+
+    
+</body>
+<script type="text/javascript" src="../../script/echarts.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('culture'));
+        var option = {       
+            grid: {
+                bottom: '4%',
+                left: '2%',
+                right: '8%',
+                top: '5%',
+                containLabel: true,
+                borderColor: '#fff',
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    return params[0].name + '<br/>'
+                           + params[0].seriesName + ' : ' + params[0].value
+                },          
+            },
+            dataZoom: [
+                {
+                    type: 'inside',
+                    realtime: true,
+                    start: 70,
+                    end: 100
+                }
+            ],
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine: { onZero: false },
+                    axisTick: {show: false },
+                    splitLine: { show: false },
+                    axisLine: { lineStyle: { color: '#aaa' } },
+                    data: [
+                        '1月3日', '1月10日', '1月17日', '1月24日', '1月31日', '2月7日', '2月14日', '2月21日', '2月28日', '3月6日', '3月13日', '3月20日', '3月27日', '4月3日', '4月10日', '4月17日', '4月24日', '5月1日', '5月28日', '5月15日', '5月22日' ,'5月29日'
+                    ].map(function (str) {
+                        return str.replace(' ', '\n')
+                    })
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    max: 100,
+                    splitLine: { show: false },
+                    axisLine: { lineStyle: { color: '#aaa' } },
+                    axisTick: { length: 3, lineStyle: { color: '#aaa' } },
+                    textStyle: { color: '#aaa'  },
+                }
+            ],
+            series: [
+                {
+                    name: '分值',
+                    type: 'line',
+                    label: {
+                            normal:
+                                {
+                                    textStyle: { color: '#aaa' },
+                                    show: true,
+                                    position: ['70%', '70%'],
+                                }
+                        },
+                    lineStyle: { normal: { color: "#F6BB42" } },
+                    data: [
+                        45,47,52,63,67,71,65,81,75,82,93,82,85,81,72,77,78,74,86,83,74,75
+                    ]
+                },           
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('core'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                formatter: "{b} : {c} 分 ",
+                axisPointer: {            
+                    type: ''        
+                }
+            },
+            grid: {
+                left: '2%',
+                right: '4%',
+                bottom: '3%',
+                top: '7%',
+                borderColor: '#eee',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                splitLine: { show: false },
+                axisLabel: {
+                    
+                    interval: 0
+                },
+                data: ['创新', '责任感', '合作', '宽容','自信', '友善', '激情', '诚实']
+            },
+            yAxis: {
+                type: 'value',
+                max:100,
+                splitLine: {
+                    lineStyle: { color: '#ddd' }
+                }
+            },
+
+            series: [
+                {
+                    type: 'bar',
+                    barMaxWidth:50,
+                    label: { normal: {show: true,position: 'insideTop'}},
+                    itemStyle: { normal: { color: '#F6BB42' } },
+
+                    data: [77, 83, 51, 68, 88, 73, 82,79]
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+                var myChart = echarts.init(document.getElementById('agree'));
+        var option = {
+            baseOption: {
+                tooltip: {
+                    trigger: 'item',
+                    position: ['10%', '0%'],
+                    formatter: "{b} : {c} 人 ({d}%)"
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: [
+                            { value: 42, name: '极不认同' },
+                            { value: 78, name: '不认同' },
+                            { value: 132, name: '一般' },
+                            { value: 155, name: '比较认同' },
+                            { value: 50, name: '非常认同' }
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ],
+            },          
+        };
+        myChart.setOption(option);
+</script>
+<script type="text/javascript">
+	apiready = function () {
+        setRefreshHeader(); 
+    };
+        //下拉刷新
+    function setRefreshHeader() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#EEEEF0',
+            textColor: '#aaa',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            api.refreshHeaderLoadDone(),
+            api.toast({msg: "无最新数据", location: 'buttom'})
+        });
+    }
+</script>
+</html>

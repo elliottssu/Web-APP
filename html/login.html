@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url(../image/login/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        header {
+            display: -webkit-box;
+        }
+
+        .title {
+            -webkit-box-flex: 1;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        .cancel {
+            background-image: url("../image/login/ad_close_gray@2x.png");
+            background-size: 40px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        .user {
+            background-image: url("../image/login/login_account@2x.png");
+        }
+
+        .password {
+            background-image: url("../image/login/logn_password@2x.png");
+        }
+
+        .input-wrap {
+            padding: 10px 0;
+            display: -webkit-box;
+        }
+
+        .input-wrap:first-child {
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        .form {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 40px 20px 0 20px;
+            border-radius: 8px;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            background-color: rgba(255, 255, 255, 0);
+            outline: none;
+            height: 30px;
+        }
+
+        .find-pwd {
+            color: #eee;
+            margin-left: 20px;
+            margin-right:20px; 
+            margin-top: 15px;
+        }
+
+        .button.green {
+            background-color: #36b05e;
+        }
+
+        .button {
+            display: block;
+            color: #000;
+            margin: 0 20px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .button.yellow {
+            background-color: #FFDC4B;
+        }
+
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+        .margin-top-10 {
+            margin-top: 10px;
+        }
+        .fl{
+            float: left;
+        }
+        .fr{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="title">登陆</div>
+</header>
+
+<div class="content">
+    <div class="form">
+        <div class="input-wrap">
+            <i class="user"></i>
+            <input type="text" placeholder="手机号"  id="username" value="">
+        </div>
+        <div class="input-wrap">
+            <i class="password"></i>
+            <input type="password" placeholder="密码"  id="password" value="">
+        </div>
+    </div>
+    <div class="button yellow margin-top-20" id="login" tapmode="" onclick="login()">登陆</div>
+
+    <div class="find-pwd fl" tapmode="" onclick="toRegister()">快速注册</div> 
+    <div class="find-pwd fr">找回密码</div> 
+    </div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    apiready = function () {
+        fixIos7Bar($(".header"));
+        exitApp();
+
+    };
+    function toRegister(){
+        api.openWin({
+            name:'register',
+            url:'register.html'
+        })
+    }
+
+    function openWin() {
+       api.openWin({
+            name: 'first_frame',
+            url: '../index.html'
+        })
+    }
+    function exitApp(){
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err){
+            api.closeWidget({
+                id: 'A6916875824670',     
+                retData: {name:'closeWidget'},
+                silent:true
+             });
+        });
+}
+    function login(){
+        api.showProgress();
+        var username=$("#username").val();
+        var password=$("#password").val();
+        var user = api.require('user');
+        user.login({
+            username: username,
+            password:password
+        }, function(ret, err) {
+            if("none"==api.connectionType){
+                api.hideProgress();
+                api.toast({msg : "网络连接错误，请开启网络", location: "bottom"})
+            }else{
+                api.hideProgress();
+            if (ret) {
+                localStorage.setItem('userId',ret.id);
+                api.execScript({
+                    name:'user',
+                    script:'checkUserId()'
+                })
+                api.execScript({
+                    name:'root',
+                    script:'checkUserId()'
+                })
+                
+                openWin();
+                api.toast({msg : "登陆成功", location: "bottom"})
+                ;
+            }else{
+                api.toast({msg : "用户名或密码错误，请重新输入", location: "bottom"})
+            }
+            }
+
+             
+            
+        });
+    }
+</script>
+</body>
+</html>

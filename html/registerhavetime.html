@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url(../image/login/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        header {
+            display: -webkit-box;
+        }
+
+        .title {
+            -webkit-box-flex: 1;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 50px;
+            height: 50px;
+        }
+
+
+        i {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-size: 30px;
+            background-repeat: no-repeat no-repeat;
+            background-position: center;
+        }
+
+        .user {
+            background-image: url("../image/login/login_account@2x.png");
+        }
+
+        .password {
+            background-image: url("../image/login/logn_password@2x.png");
+        }
+
+        .input-wrap {
+            padding: 10px 0;
+            display: -webkit-box;
+        }
+
+        .input-wrap:first-child{
+            border-bottom: 1px solid #d4d4d4;
+        }
+        .yanzheng{
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        .form {
+            background-color: rgba(255, 255, 255, 0.8);
+            margin: 40px 20px 0 20px;
+            border-radius: 8px;
+            padding: 0 10px;
+            line-height: 30px;
+        }
+
+        .input-wrap input {
+            display: block;
+            -webkit-box-flex: 1;
+            background-color: rgba(255, 255, 255, 0);
+            outline: none;
+            height: 32px;
+        }
+
+
+        .button.green {
+            background-color: #36b05e;
+        }
+
+        .button {
+            display: block;
+            color: #000;
+            margin: 0 20px;
+            text-align: center;
+            border-radius: 8px;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .button.yellow {
+            background-color: #FFDC4B;
+        }
+
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+
+        .back {
+            background-size: 20px !important;
+            background-image: url("../image/login/icon_nav_back@2x.png");
+            background-position: center;
+            background-repeat: no-repeat no-repeat;
+        }
+        #getbtn{
+            color: #4A4A4A;
+            background-color: #FFDC4B!important;
+            border-radius: 4px;
+
+        }
+        
+    </style>
+</head>
+<body>
+<header>
+    <div class="btn back" tapmode="" onclick="api.closeWin()"></div>
+    <div class="title">注册</div>
+    <div class="btn"></div>
+</header>
+
+<div class="content">
+    <div class="form">
+        <div class="input-wrap">
+            <i class="user"></i>
+            <input type="number" placeholder="输入手机号"  id="username" value="">
+        </div>
+        <div class="input-wrap yanzheng">
+            <input type="number" placeholder="输入验证码"  id="code" value="">
+            <input type="button" id="getbtn" value="获取验证码" tapmode="" onclick="sms()">
+        </div>                
+        <div class="input-wrap">
+            <i class="password"></i>
+            <input type="password" placeholder="输入密码"  id="password" value="">
+        </div>
+    </div>
+    <div class="button yellow margin-top-20" id="login" tapmode="" onclick="verify()">注册</div>
+    </div>
+<script src="../script/zepto.min.js"></script>
+<script>
+    var smsVerify = null;
+    var wait=60; //验证码初始化
+    apiready = function () {
+        fixIos7Bar($(".header"));
+        smsVerify = api.require('smsVerify');
+        
+        // 初始化
+        smsregister();
+
+    };
+    
+    // 注册，初始化
+    function smsregister(){
+        smsVerify.register(function(ret, err){
+            if(ret.status){
+                //api.alert({msg: '注册成功'});
+                console.log('注册成功');
+            }else{
+                api.alert({msg: err.code+' 注册失败'});
+            }
+        });
+    }
+  
+    // 发短信验证码
+    function sms(){
+        var phone = document.getElementById("username").value;
+        smsVerify.sms({
+            phone:phone,
+        },function(ret, err){
+            if("none"==api.connectionType){
+                api.hideProgress();
+                api.toast({msg : "网络连接错误，请开启网络", location: "bottom"})
+            }else
+            if(ret.status){
+                // 新增的安卓智能验证功能
+                if( ret.smart == true ){    // 安卓版特有功能 智能验证成功
+                    api.alert({msg: '该手机号码已经注册，请更换手机！'});
+                }else{
+                    api.toast({msg : "验证码已发送", location: "bottom"});
+                    document.getElementById("getbtn").disabled=true;
+                    time(o);//调用倒计时
+                }
+            }else{
+                api.alert({msg: err.code+' 验证码发送失败，请检查手机号是否正确'});
+            }
+        });
+    }
+
+    //获取验证码倒计时  
+    function time(o) { 
+        if (wait == 0) { 
+            o.removeAttribute("disabled");           
+            o.value="免费获取验证码"; 
+            wait = 60; 
+        } else { 
+            o.setAttribute("disabled", true); 
+            o.value=wait+"S"; 
+            wait--; 
+            setTimeout(function() { 
+                time(o) 
+            }, 
+            1000) 
+        } 
+    } 
+    
+    // 发语音验证码
+    function voice(){
+        var phone = document.getElementById("username").value;
+        smsVerify.voice({
+            phone:phone,
+        },function(ret, err){
+            if(ret.status){
+                api.alert({msg: '语音发送成功'});
+            }else{
+                api.alert({msg: err.code+' 语音发送失败'});
+            }
+        });
+    }
+    //注册
+
+    function register() {
+        api.showProgress();
+        var model = api.require('model');
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var user = api.require('user');
+        user.register({
+            username: username,
+            password: password
+        }, function (ret, err) {                 
+            api.hideProgress();
+            if (ret) {
+                api.alert({
+                    title: '恭喜！注册成功',
+                    buttons: ['确定']
+                }, function (ret, err) {
+                    if (ret.buttonIndex == 1) {
+                        api.closeWin();
+                    }
+                });
+            } else {
+                api.toast({msg: err.message, location: "middle"})
+            }        
+        });
+
+    }
+
+
+    // 校验验证码
+    function verify(){
+        var password = document.getElementById("password").value;
+        if("none"==api.connectionType){
+                api.hideProgress();
+                api.toast({msg : "网络连接错误，请开启网络", location: "bottom"})
+            }else if(password==""){
+                api.hideProgress();
+                api.toast({msg : "密码不能为空", location: "bottom"})
+            }else{
+
+        var phone = document.getElementById("username").value;
+        var code = document.getElementById("code").value;
+        smsVerify.verify({
+            phone:phone,
+            code:code,
+        },function(ret, err){
+              if(ret.status){
+                register();
+            }else{
+                api.alert({msg: err.code+' 验证码错误，请重新输入'});
+            }
+        });
+
+         }
+
+       
+    }
+
+
+
+</script>
+</body>
+</html>

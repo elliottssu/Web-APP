@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget id="A6916875824670"  version="0.0.1">
+  <name>魅文</name>
+    <description>企业文化管理软件</description>
+    <author email="94slgbest@163.com" href="http://www.meiculture.com">魅文信息科技</author>
+    <content src="index.html" />
+    <preference name="appBackground" value="rgba(0,0,0,0)"/>
+    <preference name="windowBackground" value="rgba(0,0,0,0)"/>
+    <preference name="frameBackgroundColor" value="rgba(0,0,0,0)"/>
+    <preference name="autoLaunch" value="true"/>
+    <preference name="autoUpdate" value="true"/>
+    <preference name="smartUpdate" value="false"/>
+    <preference name="debug" value="false"/>
+    <preference name="statusBarAppearance" value="false"/>
+    <permission name="readPhoneState" />
+    <permission name="call" />
+    <permission name="sms" />
+    <permission name="location"/>
+    <permission name="internet"/>
+    <permission name="hardware" />
+    <permission name="contact" />
+    <feature name="smsVerify">
+       <param name="android_app_key" value="123219fecfd2a"/>
+       <param name="android_app_secret" value="593cb928481448e3eea6ccbd86c4096e"/>
+       <param name="ios_app_key" value="1243dabe4bafa"/>
+       <param name="ios_app_secret" value="5a6a00989162a0c0802e5e374d54da71"/>
+   </feature>
+    <access origin="*"/>
+</widget>

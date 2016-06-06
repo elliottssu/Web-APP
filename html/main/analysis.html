@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+    body{
+    	overflow-x:hidden
+ 
+    }
+    .card{
+    border: 1px solid rgba(54, 64, 74, 0.05);
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    margin-top: 5px;
+    background-color: #ffffff;    	
+    }
+    .title{
+    font-size: 15px;
+    padding: 5px;
+    height: 30px;
+    color: #828282
+    }
+    </style>
+</head>
+<body>
+<div class="card">
+   <div class="title">1.在日常工作中，你觉得目前公司的创新氛围如何？</div>
+   <div id="1" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">2.您认为哪些因素的改善可以提高您的积极性？</div>
+   <div id="2" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">3.您认为员工对公司提出意见和建议时，公司的反应是？</div>
+   <div id="3" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">4.您是否能够经常从领导那里得到企业文化理念的传递或感受到领导以文化要求自己进而带动团队？</div>
+   <div id="4" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">5.下列哪种情形在公司比较常见？</div>
+   <div id="5" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">6.您认为创业团队中,企业领导者最起码应具备以下哪些条件？</div>
+   <div id="6" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">7.如果您认为各业务部门之间存在着协调问题，请问您认为应该如何解决?</div>
+   <div id="7" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">8.您认为企业文化建设应该达到的效果是?</div>
+   <div id="8" style="height:240px;"></div>
+</div>
+<div class="card">
+   <div class="title">9.“文化软创新”是关注产品和服务的感官知觉、审美情趣、知识认知的非功能性表现的创新，本企业在品牌塑造中，有利用“软创新”进行品牌塑造吗?</div>
+   <div id="9" style="height:240px;"></div>
+</div>
+    
+</body>
+<script type="text/javascript" src="../../script/echarts.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('1'));
+        var option = {
+            baseOption: {
+                tooltip: {
+                    trigger: 'item',
+                    position: ['10%', '0%'],
+                    formatter: "{b} : {c} 人 ({d}%)"
+                },
+                series: [
+                    {
+                    	animation:false,
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: [
+                            { value: 42, name: '极不同意' },
+                            { value: 78, name: '不同意' },
+                            { value: 132, name: '一般' },
+                            { value: 155, name: '同意' },
+                            { value: 50, name: '比较同意' }
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ],
+            },          
+        };
+        myChart.setOption(option);
+
+                var myChart = echarts.init(document.getElementById('2'));
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ({d}%)"
+            },
+            series: [
+                {
+                	animation:false,
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 34, name: '给个人施展才华的机会' },
+                        { value: 56, name: '收入增加' },
+                        { value: 157, name: '能得到系统培训' },
+                        { value: 235, name: '制定吸引人的长远目标' },
+                        { value: 34, name: '福利好' },
+                        { value: 75, name: '人际关系融洽' },
+                        { value: 157, name: '工作环境改善' },
+                        { value: 34, name: '业余文化生活丰富' },
+                        { value: 89, name: '医疗保障' }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('3'));
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ({d}%)"
+            },
+            series: [
+                {
+                	animation:false,
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 34, name: '友善接受' },
+                        { value: 90, name: '有所反应' },
+                        { value: 157, name: '毫无反应' },
+                        { value: 235, name: '不能接受' }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('4'));
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ({d}%)"
+            },
+            series: [
+                {
+                	animation:false,
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 90, name: '有' },
+                        { value: 34, name: '在一定程度上有' },
+                        { value: 70, name: '不明显' },
+                        { value: 157, name: '不清楚' },
+                        { value: 235, name: '没有' }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('5'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ",
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },         
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '3%',
+                borderColor:'#eee',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                splitLine: { show: false },
+                axisLabel:{
+                    rotate: 30,
+                    interval:0
+                },
+                data: ['时间观念差', '没有人愿意拍板决策', '职能科室服务意识不强', '注重绝对公平、不注重效率', '领导经常交办一些事情但却不问结果', '人治大于法治', '上级的上级经常直接干预自己的工作', '经常不知道应该向谁汇报工作']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {lineStyle: { color: '#ddd'}
+                }
+            },
+            
+            series: [
+                { 
+                    animation:false,              
+                    type: 'bar',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop'
+                        }
+                    },
+                    data: [7, 23, 11, 78, 8,123,42,11]
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('6'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ",
+                axisPointer: {type: 'shadow'}
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '3%',
+                borderColor: '#eee',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                splitLine: { show: false },
+                axisLabel: {
+                    rotate: 30,
+                    interval: 0
+                },
+                data: ['创业精神', '社会责任感', '民主作风', '关爱员工、企业价值观信念', '远见卓识', '决策能力', '坚持原则', '组织管理能力', '事业心']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {
+                    lineStyle: { color: '#ddd' }
+                }
+            },
+
+            series: [
+                {
+                	animation:false,
+                    type: 'bar',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop'
+                        }
+                    },
+                    data: [90, 43, 19, 157, 236, 100, 50, 97]
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('7'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ",
+                axisPointer: { type: 'shadow' }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '3%',
+                borderColor: '#eee',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                splitLine: { show: false },
+                axisLabel: {
+                    rotate: 30,
+                    interval: 0
+                },
+                data: ['各位领导按照业务流程的特点进行重新分工', '由一位副总经理统一协调各业务部门', '设立负责统一协调的部门', '加强部门之间的考核，且考核结果直接和年底奖金挂钩', '从企业文化上强调力。强各部门之间的配合协作意识']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {
+            lineStyle: { color: '#ddd' }
+        }
+            },
+
+            series: [
+                {
+                	animation:false,
+                    type: 'bar',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop'
+                        }
+                    },
+                    data: [134, 21, 321, 99, 82]
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('8'));
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ",
+                axisPointer: { type: 'shadow' }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '3%',
+                borderColor: '#eee',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                axisTick: {
+                    show: false
+                },
+                splitLine: { show: false },
+                axisLabel: {
+                    rotate: 30,
+                    interval: 0
+                },
+                data: ['使企业人心凝聚、目标一致', '使员工服从企业的目标和决定，全力效力于企业', '使企业更富文化力、人性力', '实现企业、员工、社会的共赢']
+            },
+            yAxis: {
+                type: 'value',
+                splitLine: {
+                    lineStyle: { color: '#ddd' }
+                }
+            },
+
+            series: [
+                {
+                	animation:false,
+                    type: 'bar',
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'insideTop'
+                        }
+                    },
+                    data: [267, 44, 167, 92]
+                }
+            ]
+        };
+        myChart.setOption(option);
+
+        var myChart = echarts.init(document.getElementById('9'));
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                position: ['10%', '0%'],
+                formatter: "{b} : {c} 人 ({d}%)"
+            },
+            series: [
+                {
+                	animation:false,
+                    type: 'pie',
+                    radius: '70%',
+                    center: ['50%', '50%'],
+                    data: [
+                        { value: 34, name: '有的，企业非常注重“文化软创新”' },
+                        { value: 90, name: '没有，企业更关注针对产品功能本身的“硬创新”' },
+                        { value: 157, name: '企业对“软创新”和“硬创新”都很重视' },
+                        { value: 235, name: '没听说过“软创新”' }
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+        myChart.setOption(option);
+</script>
+<script type="text/javascript">
+	apiready = function () {
+        setRefreshHeader(); 
+    };
+        //下拉刷新
+    function setRefreshHeader() {
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: '#EEEEF0',
+            textColor: '#aaa',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function (ret, err) {
+            api.refreshHeaderLoadDone(),
+            api.toast({msg: "无最新数据", location: 'buttom'})
+        });
+    }
+</script>
+</html>

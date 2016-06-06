@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/common.css" />
+    <style>
+    html,body{
+    	background-color: #fff
+    }
+    .card{
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    background-clip: padding-box;
+    background-color: #ffffff;   
+    text-align: center; 	
+    }
+    .title{
+    font-size: 15px;
+    padding: 10px;
+    color: #828282;
+    
+    }
+    .border{
+    border-bottom:1px solid #F6F6F6;
+    }
+    .content{
+    font-size: 18px;
+    padding: 10px;
+    color: #000；
+
+    }
+    .h20{
+    	height: 5px;
+    	background-color: #eee
+    }
+
+
+
+    </style>
+</head>
+<body>
+<div class="card">
+   <div class="title border">最高使命</div>
+   <div class="content">共创美好新生活</div>
+</div>
+	<div class="h20"></div>
+<div class="card">
+   <div class="title">核心价值观</div>
+
+</div>
+    
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript">
+apiready = function () {
+         UIListView = api.require('UIListView');
+        ListView();
+    };
+ 
+
+function ListView() {
+	UIListView.open({
+    rect: {
+        x: 0,
+        y: 128,
+        w: api.winWidth,
+        h: api.winHeight
+    },
+    data: [{
+        uid: '1001',    
+        title: '创新',
+       // subTitle: '1',
+    },{
+        uid: '1001',   
+        title: '责任感',
+        //subTitle: '2',
+    },{
+        uid: '1001',    
+        title: '合作',
+        //subTitle: '3',
+    },{
+        uid: '1001',    
+        title: '宽容',
+       // subTitle: '4',
+    },{
+        uid: '1001',    
+        title: '自信',
+        //subTitle: '5',
+    },{
+        uid: '1001',    
+        title: '友善',
+       // subTitle: '6',
+    }],
+    rightBtns: [{
+        bgColor: '#FFDC4B',
+        activeBgColor: '',
+        width: 70,
+        title: '编辑',
+        titleSize: 14,
+        titleColor: '#585858',
+        icon: '',
+        iconWidth: 20
+    },
+    {
+        bgColor: '#FFDC4B',
+        activeBgColor: '',
+        width: 70,
+        title: '删除',
+        titleSize: 14,
+        titleColor: '#585858',
+        icon: '',
+        iconWidth: 20
+    }],
+    styles: {
+        borderColor: '#F6F6F6',
+        item: {
+            bgColor: '#fff',
+            activeBgColor: '#F5F5F5',
+            height: 55.0,
+            imgWidth: 40,
+            imgHeight: 40,
+            imgCorner: 4,
+            placeholderImg: '',
+            titleSize: 16.0,
+            titleColor: '#000',
+            subTitleSize: 12.0,
+            subTitleColor: '#aaa', 
+            remarkColor: '#000',
+            remarkSize: 16,
+            remarkIconWidth: 30
+        }
+    },
+    fixedOn: api.frameName
+}, function( ret, err ){
+    if( ret ){
+         //alert( JSON.stringify( ret ) );
+    }else{
+         //alert( JSON.stringify( err ) );
+    }
+});
+}
+
+ 
+</script>
+</html>
